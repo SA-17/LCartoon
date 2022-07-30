@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 	ListView lv;
 	EditText sv;
 	MyListAdapter adapter;
-	ActionMode mActionMode;
 
 	HashMap<String, String> cartoonn;
 	HashMap<String, String> cartoont;
@@ -218,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
 				adapter = new MyListAdapter(MainActivity.this);
 
 				lv.setAdapter(adapter);
+				
+				sv.setBackgroundColor(Color.TRANSPARENT);								
 
 				lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					public void onItemClick(AdapterView<?> ad, View v, final int ol, long l) {
@@ -228,14 +230,6 @@ public class MainActivity extends AppCompatActivity {
 						intent.putExtra("EPISODE", cartoonepisode.get(ol).getEpisode());
 						intent.putExtra("LINK", cartoonlink.get(ol).getLink());
 						startActivity(intent);
-					}
-				});
-
-				sv.setOnLongClickListener(new View.OnLongClickListener() {
-					@Override
-					public boolean onLongClick(View v) {
-						mActionMode = MainActivity.this.startActionMode(new ActionBarCallback());
-						return true;
 					}
 				});
 
@@ -266,9 +260,7 @@ public class MainActivity extends AppCompatActivity {
 											MainActivity.this, R.drawable.ic_search_black_24dp), null, null, null);
 								} else {
 									sv.getText().clear();
-									InputMethodManager inputManager = (InputMethodManager) getApplicationContext()
-											.getSystemService(Context.INPUT_METHOD_SERVICE);
-									inputManager.hideSoftInputFromWindow(sv.getWindowToken(), 0);
+									
 								}
 							}
 						});
@@ -551,37 +543,6 @@ public class MainActivity extends AppCompatActivity {
 			} catch (Exception e) {
 				Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 			}
-		}
-	}
-
-	class ActionBarCallback implements ActionMode.Callback {
-
-		@Override
-		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.getMenuInflater().inflate(R.menu.editpopup, menu);
-			return true;
-		}
-
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			return false;
-		}
-
-		@Override
-		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-			int id = item.getItemId();
-			switch (id) {
-			case R.id.item_copy:
-			    Toast.makeText(MainActivity.this, "copy", Toast.LENGTH_SHORT).show();
-				break;
-			}
-			return false;
-		}
-
-		@Override
-		public void onDestroyActionMode(ActionMode mode) {
-
 		}
 	}
 

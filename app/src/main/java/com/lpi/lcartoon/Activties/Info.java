@@ -10,8 +10,6 @@ import com.lpi.lcartoon.R;
 
 public class Info extends AppCompatActivity {
 	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
